@@ -31,6 +31,7 @@ public class SensorService extends Service implements SensorEventListener{
     public static final String TAG = "SensorService";
     public static final int SCREEN_OFF_RECEIVER_DELAY = 500;
     private PowerManager.WakeLock mWakeLock = null;
+    int oiuyt = 0;
 
     public void onCreate() {
         Toast.makeText(this, "Service created ...", Toast.LENGTH_LONG).show();
