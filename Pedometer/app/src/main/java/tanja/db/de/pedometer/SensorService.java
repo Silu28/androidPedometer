@@ -127,6 +127,7 @@ public class SensorService extends Service implements SensorEventListener{
             String valuesAcc = unAccel[0] + ";" + unAccel[1] + ";"
                     + unAccel[2] + ";" + event.timestamp;
             MainActivity.dataUnAcc.add(valuesAcc);
+
             //MainActivity.showData.setText((new Float(unAccel[0])).toString());
         }
 
@@ -137,6 +138,7 @@ public class SensorService extends Service implements SensorEventListener{
             String valueCoAcc = corrected_acceleration[0] + ";" + corrected_acceleration[1] + ";"
                     + corrected_acceleration[2] + ";"+ event.timestamp;
             MainActivity.dataCoAcc.add(valueCoAcc);
+
             //MainActivity.showData.setText((new Float(corrected_acceleration[0])).toString());
         }
 
@@ -152,6 +154,7 @@ public class SensorService extends Service implements SensorEventListener{
             String valueRot =  rotationVectorX +";"+ rotationVectorY +";" + rotationVectorZ +";"
                     + scalarOfRotation +";" +event.timestamp;
             MainActivity.dataRot.add(valueRot);
+
             //MainActivity.showData.setText((new Float(rotationVectorXYZ[0])).toString());
         }
 

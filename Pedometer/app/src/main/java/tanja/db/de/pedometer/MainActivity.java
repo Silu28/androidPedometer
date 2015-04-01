@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
     static ArrayList<String> dataCoAcc;
     static ArrayList<String> dataRot;
     static ArrayList<String> dataGyro;
-    static String filenameUnAcc, filenameCoAcc, filenameRot, filenameGyro;
+    static String filenameUnAcc,filenameUnAcc2, filenameCoAcc2, filenameCoAcc, filenameRot,filenameRot2, filenameGyro,filenameGyro2;
     static TextView showData;
 
     @Override
@@ -34,6 +34,47 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         showData = (TextView) findViewById(R.id.showDataTextView);
+        ////////////////////////
+        Button StepsRecord = (Button) findViewById(R.id.idStepsRecord);
+        StepsRecord.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dataCoAcc = new ArrayList<String>();
+                dataRot = new ArrayList<String>();
+                dataUnAcc = new ArrayList<String>();
+                dataGyro = new ArrayList<String>();
+
+                filenameCoAcc2 = "CoStepAcc.csv";
+                filenameRot2 = "RoStep.csv";
+
+                filenameUnAcc2 = "UnStepAcc.csv";
+                filenameGyro2 = "GyrStep.csv";
+
+                startService(new Intent(MainActivity.this,
+                        SensorService.class));
+
+            }
+        });
+
+        Button StepStop = (Button) findViewById(R.id.idStepsStop);
+        StepStop.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                saveAll(filenameUnAcc2, dataUnAcc);
+                saveAll(filenameCoAcc2, dataCoAcc);
+                saveAll(filenameRot2, dataRot);
+                saveAll(filenameGyro2, dataGyro);
+
+                dataUnAcc.clear();
+                dataCoAcc.clear();
+                dataGyro.clear();
+                dataRot.clear();
+                stopService(new Intent(MainActivity.this,
+                        SensorService.class));
+
+            }
+
+        });
+        //////////////////////////
 
         Button record = (Button) findViewById(R.id.idRecord);
         record.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +118,9 @@ public class MainActivity extends Activity {
         try
         {
             File traceFile = new File(((Context)this).getExternalFilesDir(null), name); // Creates a trace file in the primary external storage space of the current application.
-            if (!traceFile.exists())        // If the file does not exists, it is created.
+            if (!traceFile.exists()){        // If the file does not exists, it is created.
                 traceFile.createNewFile();
+            }
             BufferedWriter writer = new BufferedWriter(new FileWriter(traceFile, true /*append*/)); // Adds a line to the trace file
             for (String t: data){
                 writer.write(t);
